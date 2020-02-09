@@ -1,0 +1,14 @@
+## Interface: 30300
+## Title: |cff009cffs|rArena
+## Notes: Improved arena frames.
+## Author: Stako (edit by Aelwi)
+## Version: 1.1.2 
+
+## SavedVariables: sArenaDB
+
+tekKonfig\tekKonfig.xml
+
+sArena.lua
+trinkets.lua
+castbars.lua
+options.lua
