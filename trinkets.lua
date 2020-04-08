@@ -7,6 +7,18 @@ sArena.Defaults.Trinkets = {
 		alwaysShow = true,
 }
 
+local races = {
+	[1] = "Human",
+	[2] = "Scourge",
+	[3] = "None"
+}
+
+local raceIcons = {
+	Human = "Interface\\Icons\\spell_shadow_charm",
+	Scourge = "Interface\\Icons\\spell_shadow_raisedead",
+	None = "Interface\\Icons\\inv_misc_questionmark"
+}
+
 function sArena.Trinkets:Initialize()
 	if ( not sArenaDB.Trinkets ) then
 		sArenaDB.Trinkets = CopyTable(sArena.Defaults.Trinkets)
@@ -14,15 +26,35 @@ function sArena.Trinkets:Initialize()
 	
 	for i = 1, MAX_ARENA_ENEMIES do
 		local ArenaFrame = _G["ArenaEnemyFrame"..i]
-		self:CreateIcon(ArenaFrame)
+
+		self:CreateIcon(ArenaFrame, i)
+		
+		ArenaFrame:SetScript("OnShow",
+			function(self)
+				local raceRU, raceEU = UnitRace("arena"..self:GetID())
+				local race = "None"
+				
+				if tContains(races, raceEU) then
+					race = raceEU
+					sArena.Trinkets["arena"..self:GetID().."Race"].empty = false
+				end
+				
+				sArena.Trinkets["arena"..self:GetID().."Race"].Icon.Texture:SetTexture(raceIcons[race])
+			end
+		)
 	end
 end
 hooksecurefunc(sArena, "Initialize", function() sArena.Trinkets:Initialize() end)
 
-function sArena.Trinkets:CreateIcon(frame)
+function sArena.Trinkets:CreateIcon(frame, arenaIndex)
 	local trinket = CreateFrame("Cooldown", nil, frame)
+	trinket.point = "arena"..arenaIndex
+	
+	trinket.cooldown = 0
+	trinket.starttime = 0
+	
 	trinket:SetFrameLevel(frame:GetFrameLevel() + 3)
-	if ( sArenaDB.Trinkets.point ) then
+	if sArenaDB.Trinkets.point then
 		trinket:SetPoint(sArenaDB.Trinkets.point, frame, sArenaDB.Trinkets.x, sArenaDB.Trinkets.y)
 	else
 		trinket:SetPoint("LEFT", frame, "RIGHT", 0, 0)
@@ -43,10 +75,50 @@ function sArena.Trinkets:CreateIcon(frame)
 	
 	if ( not sArenaDB.Trinkets.enabled ) then trinket.Icon:Hide() end
 	
+	local id = frame:GetID()
+	
+	self:CreateRaceIcon(frame, arenaIndex, trinket)
+	
 	self:AlwaysShow(sArenaDB.Trinkets.alwaysShow, trinket)
 	
-	local id = frame:GetID()
 	self["arena"..id] = trinket
+end
+
+function sArena.Trinkets:CreateRaceIcon(frame, arenaIndex, parentFrame)
+	local raceFrame = CreateFrame("Cooldown", nil, frame)
+
+	raceFrame.point = "arena"..arenaIndex
+	raceFrame.empty = true
+	
+	raceFrame.cooldown = 0
+	raceFrame.starttime = 0
+
+	raceFrame:SetFrameLevel(frame:GetFrameLevel() + 3)
+	raceFrame:SetPoint("LEFT", parentFrame, "RIGHT", 1, 0)
+
+	raceFrame:SetSize(18, 18)
+	raceFrame:SetScale(sArenaDB.Trinkets.scale)
+
+	raceFrame.Icon = CreateFrame("Frame", nil, raceFrame)
+	raceFrame.Icon:SetFrameLevel(raceFrame:GetFrameLevel() - 1)
+	raceFrame.Icon:SetAllPoints()
+	raceFrame.Icon.Texture = raceFrame.Icon:CreateTexture(nil, "BORDER")
+	raceFrame.Icon.Texture:SetAllPoints()
+	
+	local raceRU, raceEU = UnitRace(raceFrame.point)
+	local race = "None"
+
+	if tContains(races, raceEU) then
+		race = raceEU
+	end
+	
+	raceFrame.Icon.Texture:SetTexture(raceIcons[race])
+	
+	self:AlwaysShow(sArenaDB.Trinkets.alwaysShow, raceFrame)
+	
+	local id = frame:GetID()
+	
+	self["arena"..id.."Race"] = raceFrame
 end
 
 function sArena.Trinkets:Test(numOpps)
@@ -56,6 +128,10 @@ function sArena.Trinkets:Test(numOpps)
 		self["arena"..i]:SetCooldown(GetTime(), 120)
 		self["arena"..i]:EnableMouse(true)
 		self["arena"..i]:SetMovable(true)
+		
+		self["arena"..i.."Race"].Icon:Show()
+		self["arena"..i.."Race"]:SetCooldown(GetTime(), 45)
+		self["arena"..i.."Race"].Icon.Texture:SetTexture(raceIcons[races[ math.random(#races)]])
 	end
 end
 hooksecurefunc(sArena, "Test", function(obj, arg1) sArena.Trinkets:Test(arg1) end)
@@ -67,6 +143,10 @@ function sArena.Trinkets:HideTrinkets()
 		self["arena"..i]:SetCooldown(0, 0)
 		self["arena"..i]:EnableMouse(false)
 		self["arena"..i]:SetMovable(false)
+		
+		self["arena"..i.."Race"].Icon:Hide()
+		self["arena"..i.."Race"]:Hide()
+		self["arena"..i.."Race"]:SetCooldown(0, 0)
 	end
 end
 
@@ -91,10 +171,13 @@ end
 function sArena.Trinkets:Scale(scale)
 	for i = 1, MAX_ARENA_ENEMIES do
 		self["arena"..i]:SetScale(scale)
+		self["arena"..i.."Race"]:SetScale(scale)
 		if ( sArenaDB.Trinkets.alwaysShow ) then
 			self["arena"..i].Icon:SetScale(scale)
+			self["arena"..i.."Race"].Icon:SetScale(scale)
 		else
 			self["arena"..i].Icon:SetScale(1)
+			self["arena"..i.."Race"].Icon:SetScale(1)
 		end
 	end
 end
@@ -130,10 +213,36 @@ sArena.Trinkets:SetScript("OnEvent", function(self, event, ...) return self[even
 function sArena.Trinkets:UNIT_SPELLCAST_SUCCEEDED(unitID, spell)
 	if not sArena.Trinkets[unitID] then return end
 	
-	if spell == GetSpellInfo(42292) or spell == GetSpellInfo(59752) then -- Trinket and EMFH
+	if spell == GetSpellInfo(42292) then
+		self[unitID].cooldown = tonumber(120)
+		self[unitID].starttime = GetTime()
 		CooldownFrame_SetTimer(self[unitID], GetTime(), 120, 1)
-	elseif spell == GetSpellInfo(7744) then
-		CooldownFrame_SetTimer(self[unitID], GetTime(), 30, 1)
+		
+		if not self[unitID.."Race"].empty and isNeedStart(self[unitID.."Race"],45) then
+			CooldownFrame_SetTimer(self[unitID.."Race"], GetTime(), 45, 1)
+		end
+	elseif spell == GetSpellInfo(7744) or spell == GetSpellInfo(59752) then
+		self[unitID.."Race"].cooldown = tonumber(120)
+		self[unitID.."Race"].starttime = GetTime()
+		CooldownFrame_SetTimer(self[unitID.."Race"], GetTime(), 120, 1)
+		
+		if isNeedStart(self[unitID],45) then
+			CooldownFrame_SetTimer(self[unitID], GetTime(), 45, 1)
+		end
+	end
+end
+
+function isNeedStart(frame, sentCD)
+	cooldown = tonumber(sentCD);
+	activeCooldown = frame.cooldown
+	endTimeCooldown = frame.starttime + activeCooldown
+	diff = endTimeCooldown - GetTime()
+	if diff < cooldown then
+		return true
+	end
+	
+	if diff > cooldown then
+		return false
 	end
 end
 
@@ -143,6 +252,7 @@ function sArena.Trinkets:PLAYER_ENTERING_WORLD()
 		self:RegisterEvent("UNIT_SPELLCAST_SUCCEEDED")
 		for i = 1, MAX_ARENA_ENEMIES do
 			self["arena"..i]:SetCooldown(0, 0)
+			self["arena"..i.."Race"]:SetCooldown(0, 0)
 		end
 	elseif ( self:IsEventRegistered("UNIT_SPELLCAST_SUCCEEDED") ) then
 		self:UnregisterEvent("UNIT_SPELLCAST_SUCCEEDED")
