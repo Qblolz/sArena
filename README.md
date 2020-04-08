@@ -9,7 +9,7 @@
 ##### After download from github - rename folder into "sArena"
 
 #### demo
-1. ![Demo 1](https://i.imgur.com/jJHLQ0j.jpg)
+1. ![Demo 1](https://i.imgur.com/Z60jSnE.jpg)
 
 ###### support me
 * https://streamlabs.com/qbjw/tip
