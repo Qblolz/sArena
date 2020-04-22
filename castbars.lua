@@ -9,6 +9,18 @@ sArena.Defaults.CastingBars = {
 
 _ArenaFrameCastBarMixin = {}
 
+function Mixin(object, ...)
+    local mixins = {...}
+	
+    for _, mixin in pairs(mixins) do
+        for k,v in pairs(mixin) do
+            object[k] = v
+        end
+    end
+
+    return object
+end
+
 function sArena.CastingBars:Initialize()
 	if ( not sArenaDB.CastingBars ) then
 		sArena.Defaults.width = ArenaFrameCastBar:GetWidth()
