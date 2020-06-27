@@ -10,12 +10,43 @@ sArena.Defaults.Trinkets = {
 local races = {
 	[1] = "Human",
 	[2] = "Scourge",
-	[3] = "None"
+	[3] = "Tauren",
+	[4] = "BloodElf",
+	[5] = "Naga",
+	[6] = "Queldo",
+	[7] = "Pandaren",
+	[8] = "Orc",
+	[9] = "Troll",
+	[10] = "NightElf",
+	[11] = "Draenei",
+	[12] = "Vulpera",
+	[13] = "Gnome",
+	[14] = "Dwarf",
+	[15] = "Worgen",
+	[16] = "None"
+}
+
+local overallCooldownRaces = {
+	[1] = "Human",
+	[2] = "Scourge"
 }
 
 local raceIcons = {
 	Human = "Interface\\Icons\\spell_shadow_charm",
 	Scourge = "Interface\\Icons\\spell_shadow_raisedead",
+	Naga = "Interface\\Icons\\Spell_FrontArmor02",
+	Vulpera = "Interface\\Icons\\spell_sandbolt",
+	Draenei = "Interface\\Icons\\Spell_Holy_HolyProtection",
+	Orc = "Interface\\Icons\\Racial_Orc_BerserkerStrength",
+	Queldo = "Interface\\Icons\\Spell_Arcane_ArcaneResilience",
+	BloodElf = "Interface\\Icons\\Spell_Shadow_teleport",
+	Tauren = "Interface\\Icons\\Ability_WarStorm",
+	Troll = "Interface\\Icons\\Racial_Troll_Berserk",
+	NightElf = "Interface\\Icons\\Ability_Ambush",
+	Pandaren = "Interface\\Icons\\Ability_racial_quiveringpain",
+	Dwarf = "Interface\\Icons\\Spell_Shadow_UnholyStrength",
+	Gnome = "Interface\\Icons\\Ability_Rogue_Trip",
+	Worgen = "Interface\\Icons\\Abilityracial_darkflight",
 	None = "Interface\\Icons\\inv_misc_questionmark"
 }
 
@@ -36,7 +67,10 @@ function sArena.Trinkets:Initialize()
 				
 				if tContains(races, raceEU) then
 					race = raceEU
-					sArena.Trinkets["arena"..self:GetID().."Race"].empty = false
+				end
+				
+				if tContains(overallCooldownRaces, raceEU) then
+					sArena.Trinkets["arena"..self:GetID().."Race"].isOverallCD = true
 				end
 				
 				sArena.Trinkets["arena"..self:GetID().."Race"].Icon.Texture:SetTexture(raceIcons[race])
@@ -88,7 +122,7 @@ function sArena.Trinkets:CreateRaceIcon(frame, arenaIndex, parentFrame)
 	local raceFrame = CreateFrame("Cooldown", nil, frame)
 
 	raceFrame.point = "arena"..arenaIndex
-	raceFrame.empty = true
+	raceFrame.isOverallCD = false
 	
 	raceFrame.cooldown = 0
 	raceFrame.starttime = 0
@@ -218,7 +252,7 @@ function sArena.Trinkets:UNIT_SPELLCAST_SUCCEEDED(unitID, spell)
 		self[unitID].starttime = GetTime()
 		CooldownFrame_SetTimer(self[unitID], GetTime(), 120, 1)
 		
-		if not self[unitID.."Race"].empty and isNeedStart(self[unitID.."Race"],45) then
+		if self[unitID.."Race"].isOverallCD and isNeedStart(self[unitID.."Race"],45) then
 			CooldownFrame_SetTimer(self[unitID.."Race"], GetTime(), 45, 1)
 		end
 	elseif spell == GetSpellInfo(7744) or spell == GetSpellInfo(59752) then
@@ -229,6 +263,18 @@ function sArena.Trinkets:UNIT_SPELLCAST_SUCCEEDED(unitID, spell)
 		if isNeedStart(self[unitID],45) then
 			CooldownFrame_SetTimer(self[unitID], GetTime(), 45, 1)
 		end
+	elseif spell == GetSpellInfo(28880) or spell == GetSpellInfo(59542) or spell == GetSpellInfo(59543) or spell == GetSpellInfo(59544) or spell == GetSpellInfo(59545) or spell == GetSpellInfo(59547) or spell == GetSpellInfo(59548) or spell == GetSpellInfo(26297) or spell == GetSpellInfo(308725) then
+		self[unitID.."Race"].cooldown = tonumber(180)
+		self[unitID.."Race"].starttime = GetTime()
+		CooldownFrame_SetTimer(self[unitID.."Race"], GetTime(), 180, 1)
+	elseif spell == GetSpellInfo(20572) or spell == GetSpellInfo(33697) or spell == GetSpellInfo(33702) or spell == GetSpellInfo(90108) or spell == GetSpellInfo(28730) or spell == GetSpellInfo(25046) or spell == GetSpellInfo(50613) or spell == GetSpellInfo(20594) or spell == GetSpellInfo(58984) or spell == GetSpellInfo(20549) or spell == GetSpellInfo(90115) or spell == GetSpellInfo(90113) or spell == GetSpellInfo(90101) or spell == GetSpellInfo(308932) then
+		self[unitID.."Race"].cooldown = tonumber(120)
+		self[unitID.."Race"].starttime = GetTime()
+		CooldownFrame_SetTimer(self[unitID.."Race"], GetTime(), 120, 1)
+	elseif spell == GetSpellInfo(20589) then
+		self[unitID.."Race"].cooldown = tonumber(60)
+		self[unitID.."Race"].starttime = GetTime()
+		CooldownFrame_SetTimer(self[unitID.."Race"], GetTime(), 60, 1)
 	end
 end
 
