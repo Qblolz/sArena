@@ -114,11 +114,17 @@ function sArena:Test(numOpps)
 	
 	for i = 1, numOpps do
 		local ArenaFrame = _G["ArenaEnemyFrame"..i]
-		if ( instanceType ~= "pvp" ) then
-			ArenaFrame:SetPoint("RIGHT", ArenaFrame:GetParent(), "RIGHT", -2, 0)
+		
+		if ( i == 1 ) then
+			ParentFrameMove = _G["ArenaEnemyFrame1"]
+			ArenaFrame:ClearAllPoints()
+			ArenaFrame:SetPoint("TOP", self.Frame, "BOTTOM", 0, -8)
 		else
-			ArenaFrame:SetPoint("RIGHT", ArenaFrame:GetParent(), "RIGHT", -18, 0)
+			ArenaFrame:ClearAllPoints()
+			ArenaFrame:SetPoint("TOP", ParentFrameMove, "BOTTOM", 0, sArenaDB.padding)
+			ParentFrameMove = ArenaFrame
 		end
+		
 		ArenaEnemyFrame_SetMysteryPlayer(ArenaFrame)
 		
 		if ( showArenaEnemyPets ) then
