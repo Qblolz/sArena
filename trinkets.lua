@@ -23,7 +23,10 @@ local races = {
 	[13] = "Gnome",
 	[14] = "Dwarf",
 	[15] = "Worgen",
-	[16] = "None"
+	[16] = "Nightborne",
+	[17] = "VoidElf",
+	[18] = "Goblin",
+	[19] = "None"
 }
 
 local overallCooldownRaces = {
@@ -34,19 +37,22 @@ local overallCooldownRaces = {
 local raceIcons = {
 	Human = "Interface\\Icons\\spell_shadow_charm",
 	Scourge = "Interface\\Icons\\spell_shadow_raisedead",
-	Naga = "Interface\\Icons\\Spell_FrontArmor02",
+	Naga = "Interface\\Icons\\spell_frost_frostarmor02",
 	Vulpera = "Interface\\Icons\\spell_sandbolt",
+	Goblin = "Interface\\Icons\\ability_racial_rocketjump",
 	Draenei = "Interface\\Icons\\Spell_Holy_HolyProtection",
 	Orc = "Interface\\Icons\\Racial_Orc_BerserkerStrength",
 	Queldo = "Interface\\Icons\\Spell_Arcane_ArcaneResilience",
 	BloodElf = "Interface\\Icons\\Spell_Shadow_teleport",
-	Tauren = "Interface\\Icons\\Ability_WarStorm",
-	Troll = "Interface\\Icons\\Racial_Troll_Berserk",
+	Tauren = "Interface\\Icons\\ability_warstomp",
+	Troll = "Interface\\Icons\\racial_troll_berserk",
 	NightElf = "Interface\\Icons\\Ability_Ambush",
 	Pandaren = "Interface\\Icons\\Ability_racial_quiveringpain",
 	Dwarf = "Interface\\Icons\\Spell_Shadow_UnholyStrength",
 	Gnome = "Interface\\Icons\\Ability_Rogue_Trip",
 	Worgen = "Interface\\Icons\\Abilityracial_darkflight",
+	Nightborne = "Interface\\Icons\\spell_arcane_arcane01_nightborne",
+	VoidElf = "Interface\\Icons\\ability_priest_voidentropy",
 	None = "Interface\\Icons\\inv_misc_questionmark"
 }
 
@@ -268,7 +274,7 @@ function sArena.Trinkets:UNIT_SPELLCAST_SUCCEEDED(unitID, spell)
 		self[unitID.."Race"].cooldown = tonumber(180)
 		self[unitID.."Race"].starttime = GetTime()
 		CooldownFrame_SetTimer(self[unitID.."Race"], GetTime(), 180, 1)
-	elseif spell == GetSpellInfo(20572) or spell == GetSpellInfo(33697) or spell == GetSpellInfo(33702) or spell == GetSpellInfo(90108) or spell == GetSpellInfo(28730) or spell == GetSpellInfo(25046) or spell == GetSpellInfo(50613) or spell == GetSpellInfo(20594) or spell == GetSpellInfo(58984) or spell == GetSpellInfo(20549) or spell == GetSpellInfo(90115) or spell == GetSpellInfo(90113) or spell == GetSpellInfo(90101) or spell == GetSpellInfo(308932) then
+	elseif spell == GetSpellInfo(20572) or spell == GetSpellInfo(33697) or spell == GetSpellInfo(90110) or spell == GetSpellInfo(33702) or spell == GetSpellInfo(90108) or spell == GetSpellInfo(28730) or spell == GetSpellInfo(25046) or spell == GetSpellInfo(50613) or spell == GetSpellInfo(20594) or spell == GetSpellInfo(58984) or spell == GetSpellInfo(20549) or spell == GetSpellInfo(90115) or spell == GetSpellInfo(90113) or spell == GetSpellInfo(90101) or spell == GetSpellInfo(308932) then
 		self[unitID.."Race"].cooldown = tonumber(120)
 		self[unitID.."Race"].starttime = GetTime()
 		CooldownFrame_SetTimer(self[unitID.."Race"], GetTime(), 120, 1)
@@ -276,6 +282,14 @@ function sArena.Trinkets:UNIT_SPELLCAST_SUCCEEDED(unitID, spell)
 		self[unitID.."Race"].cooldown = tonumber(60)
 		self[unitID.."Race"].starttime = GetTime()
 		CooldownFrame_SetTimer(self[unitID.."Race"], GetTime(), 60, 1)
+	elseif spell == GetSpellInfo(310773) then
+		self[unitID.."Race"].cooldown = tonumber(45)
+		self[unitID.."Race"].starttime = GetTime()
+		CooldownFrame_SetTimer(self[unitID.."Race"], GetTime(), 45, 1)
+	elseif spell == GetSpellInfo(310787) then
+		self[unitID.."Race"].cooldown = tonumber(90)
+		self[unitID.."Race"].starttime = GetTime()
+		CooldownFrame_SetTimer(self[unitID.."Race"], GetTime(), 90, 1)
 	end
 end
 
