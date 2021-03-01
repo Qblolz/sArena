@@ -69,10 +69,6 @@ function sArena.Trinkets:Initialize()
 					race = raceEU
 				end
 				
-				if tContains(overallCooldownRaces, raceEU) then
-					sArena.Trinkets["arena"..self:GetID().."Race"].isOverallCD = true
-				end
-				
 				sArena.Trinkets["arena"..self:GetID().."Race"].Icon.Texture:SetTexture(raceIcons[race])
 			end
 		)
@@ -251,6 +247,11 @@ function sArena.Trinkets:UNIT_SPELLCAST_SUCCEEDED(unitID, spell)
 		self[unitID].cooldown = tonumber(120)
 		self[unitID].starttime = GetTime()
 		CooldownFrame_SetTimer(self[unitID], GetTime(), 120, 1)
+		
+		local raceRU, raceEU = UnitRace(unitID)
+		if tContains(overallCooldownRaces, raceEU) then
+			self[unitID.."Race"].isOverallCD = true
+		end
 		
 		if self[unitID.."Race"].isOverallCD and isNeedStart(self[unitID.."Race"],45) then
 			CooldownFrame_SetTimer(self[unitID.."Race"], GetTime(), 45, 1)
