@@ -26,7 +26,9 @@ local races = {
 	[16] = "Nightborne",
 	[17] = "VoidElf",
 	[18] = "Goblin",
-	[19] = "None"
+	[19] = "DarkIronDwarf",
+	[20] = "Eredar",
+	[21] = "None"
 }
 
 local overallCooldownRaces = {
@@ -53,6 +55,8 @@ local raceIcons = {
 	Worgen = "Interface\\Icons\\Abilityracial_darkflight",
 	Nightborne = "Interface\\Icons\\spell_arcane_arcane01_nightborne",
 	VoidElf = "Interface\\Icons\\ability_priest_voidentropy",
+	DarkIronDwarf = "Interface\\Icons\\inv_hammer_unique_sulfuras",
+	Eredar = "Interface\\Icons\\spell_warlock_demonicportal_green",
 	None = "Interface\\Icons\\inv_misc_questionmark"
 }
 
@@ -278,7 +282,7 @@ function sArena.Trinkets:UNIT_SPELLCAST_SUCCEEDED(unitID, spell)
 		self[unitID.."Race"].cooldown = tonumber(120)
 		self[unitID.."Race"].starttime = GetTime()
 		CooldownFrame_SetTimer(self[unitID.."Race"], GetTime(), 120, 1)
-	elseif spell == GetSpellInfo(20589) then
+	elseif spell == GetSpellInfo(20589) or spell == GetSpellInfo(316465) then
 		self[unitID.."Race"].cooldown = tonumber(60)
 		self[unitID.."Race"].starttime = GetTime()
 		CooldownFrame_SetTimer(self[unitID.."Race"], GetTime(), 60, 1)
@@ -286,7 +290,7 @@ function sArena.Trinkets:UNIT_SPELLCAST_SUCCEEDED(unitID, spell)
 		self[unitID.."Race"].cooldown = tonumber(45)
 		self[unitID.."Race"].starttime = GetTime()
 		CooldownFrame_SetTimer(self[unitID.."Race"], GetTime(), 45, 1)
-	elseif spell == GetSpellInfo(310787) then
+	elseif spell == GetSpellInfo(310787) or spell == GetSpellInfo(316161) then
 		self[unitID.."Race"].cooldown = tonumber(90)
 		self[unitID.."Race"].starttime = GetTime()
 		CooldownFrame_SetTimer(self[unitID.."Race"], GetTime(), 90, 1)
