@@ -52,7 +52,7 @@ end
 
 function module:OnEvent(event, ...)
 	for i = 1, MAX_ARENA_ENEMIES do
-		local CC
+		local CC = nil
 		local arenaFrame = _G["ArenaEnemyFrame"..i]
 		
 		if (arenaFrame["CC"] == nil) then
@@ -75,7 +75,7 @@ function module:OnEvent(event, ...)
 			CC:SetFrameLevel(4)
 
 			CC.cooldown:ClearAllPoints()
-			CC.cooldown:SetCooldownDuration(0)
+			CC.cooldown:SetCooldown(0, 0)
 			CC.cooldown:SetPoint("TOPLEFT", 1, -1)
 			CC.cooldown:SetPoint("BOTTOMRIGHT", -1, 1)
 			
