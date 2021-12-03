@@ -1,14 +1,10 @@
-## Interface: 30300
-## Title: |cff009cffs|rArena
-## Notes: Improved arena frames.
-## Author: Stako (edit by Aelwi)
-## Version: 1.1.2 
+## Interface: 20501
+## Title: sArena
+## Notes: |@Version: 1@|Improved arena frames.
+## Author: Stako
+## Version: 1.8
+## Dependencies: Blizzard_ArenaUI
 
 ## SavedVariables: sArenaDB
 
-tekKonfig\tekKonfig.xml
-
-sArena.lua
-trinkets.lua
-castbars.lua
-options.lua
+sArena.xml
