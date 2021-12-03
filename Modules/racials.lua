@@ -167,7 +167,7 @@ function RACIAL_UNIT_SPELLCAST_SUCCEEDED(self, ...)
 	local isRun = false
 	
 	for race, raceData in pairs(raceIcons) do
-		if spellId == raceData.id or raceData.alt[spellId] then
+		if spellId == raceData.id or (raceData.alt and raceData.alt[spellId]) then
 			isRun = true
 			self.time = tonumber(raceData.cd)
 			self.starttime = GetTime()
