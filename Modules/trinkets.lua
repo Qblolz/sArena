@@ -75,6 +75,7 @@ function module:OnEvent(event, ...)
 			CC:SetFrameLevel(4)
 
 			CC.cooldown:ClearAllPoints()
+			CC.cooldown:Clear()
 			CC.cooldown:SetPoint("TOPLEFT", 1, -1)
 			CC.cooldown:SetPoint("BOTTOMRIGHT", -1, 1)
 			
