@@ -88,8 +88,8 @@ raceIcons = {
 		cd = 120,
 	},
 	Pandaren = {
-		id = 316445,
-		icon = select(3, GetSpellInfo(316445)),
+		id = 316443,
+		icon = select(3, GetSpellInfo(316443)),
 		cd = 60,
 	},
 	Dwarf = {
