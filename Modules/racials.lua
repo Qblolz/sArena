@@ -213,6 +213,13 @@ function module:OnEvent(event, ...)
 			CC.cooldown:SetCooldown(0, 0)
 			CC.cooldown:SetPoint("TOPLEFT", 1, -1)
 			CC.cooldown:SetPoint("BOTTOMRIGHT", -1, 1)
+			
+			local _, race = UnitRace(CC.unit)
+	
+			local raceData = raceIcons[race]
+			if raceData then
+				CC.Icon:SetTexture(raceData.icon)
+			end
 		elseif event == "TEST_MODE" then
 			if addon.testMode then
 				CC:EnableMouse(true)

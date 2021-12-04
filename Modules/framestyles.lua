@@ -192,15 +192,18 @@ end
 
 for i = 1, MAX_ARENA_ENEMIES do
 	local arenaFrame = _G["ArenaEnemyFrame"..i]
-
+	local font, size = arenaFrame.healthbar.TextString:GetFont()
+	
 	arenaFrame.healthbar.TextString:ClearAllPoints()
 	arenaFrame.healthbar.TextString:SetPoint("CENTER", arenaFrame.healthbar)
+	arenaFrame.healthbar.TextString:SetFont(font, size - 2)
 	--arenaFrame.healthbar.LeftText:ClearAllPoints()
 	--arenaFrame.healthbar.LeftText:SetPoint("LEFT", arenaFrame.healthbar)
 	--arenaFrame.healthbar.RightText:ClearAllPoints()
 	--arenaFrame.healthbar.RightText:SetPoint("RIGHT", arenaFrame.healthbar)
 	arenaFrame.manabar.TextString:ClearAllPoints()
 	arenaFrame.manabar.TextString:SetPoint("CENTER", arenaFrame.manabar)
+	arenaFrame.manabar.TextString:SetFont(font, size - 2)
 	--arenaFrame.manabar.LeftText:ClearAllPoints()
 	--arenaFrame.manabar.LeftText:SetPoint("LEFT", arenaFrame.manabar)
 	--arenaFrame.manabar.RightText:ClearAllPoints()
