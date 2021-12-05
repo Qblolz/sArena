@@ -203,6 +203,8 @@ function module:OnEvent(event, ...)
 			CC = arenaFrame.racial
 		end
 
+		CC.cooldown:SetCooldown(0, 0)
+		
 		if event == "ADDON_LOADED" then
 			CC:SetMovable(true)
 			addon:SetupDrag(self, true, CC)
@@ -210,7 +212,6 @@ function module:OnEvent(event, ...)
 			CC:SetFrameLevel(4)
 
 			CC.cooldown:ClearAllPoints()
-			CC.cooldown:SetCooldown(0, 0)
 			CC.cooldown:SetPoint("TOPLEFT", 1, -1)
 			CC.cooldown:SetPoint("BOTTOMRIGHT", -1, 1)
 			
