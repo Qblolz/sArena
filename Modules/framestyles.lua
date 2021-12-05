@@ -157,7 +157,7 @@ function module:SetFrameStyle(frame, frameStyle, mirroredFrames)
 		frame.texture:Hide()
 		frame.backgroundFrame:Show()
 		frame.backgroundFrame:SetSize(150 - 8, 30)
-		frame.backgroundFrame:SetPoint("TOPLEFT", frame.classPortrait, 0, 0)
+		frame.backgroundFrame:SetPoint("TOPLEFT", frame.classPortrait, -112, 0)
 		addon.squareClassPortrait = true
 
 		if frame.auraFrame then
@@ -177,6 +177,8 @@ function module:SetFrameStyle(frame, frameStyle, mirroredFrames)
 
 			frame.healthbar:SetPoint("TOPLEFT", frame.classPortrait, "TOPRIGHT", 2, -2)
 			frame.healthbar:SetPoint("BOTTOMRIGHT", frame.manabar, "TOPRIGHT")
+			
+			frame.backgroundFrame:SetPoint("TOPLEFT", frame.classPortrait, 0, 0)
 		else
 			frame.name:SetPoint("BOTTOMLEFT", 0, 28)
 			frame.classPortrait:SetPoint("BOTTOMRIGHT", -11, 0)
@@ -196,14 +198,14 @@ for i = 1, MAX_ARENA_ENEMIES do
 	
 	arenaFrame.healthbar.TextString:ClearAllPoints()
 	arenaFrame.healthbar.TextString:SetPoint("CENTER", arenaFrame.healthbar)
-	arenaFrame.healthbar.TextString:SetFont(font, size - 2)
+	arenaFrame.healthbar.TextString:SetFont(font, size - 1)
 	--arenaFrame.healthbar.LeftText:ClearAllPoints()
 	--arenaFrame.healthbar.LeftText:SetPoint("LEFT", arenaFrame.healthbar)
 	--arenaFrame.healthbar.RightText:ClearAllPoints()
 	--arenaFrame.healthbar.RightText:SetPoint("RIGHT", arenaFrame.healthbar)
 	arenaFrame.manabar.TextString:ClearAllPoints()
 	arenaFrame.manabar.TextString:SetPoint("CENTER", arenaFrame.manabar)
-	arenaFrame.manabar.TextString:SetFont(font, size - 2)
+	arenaFrame.manabar.TextString:SetFont(font, size - 1)
 	--arenaFrame.manabar.LeftText:ClearAllPoints()
 	--arenaFrame.manabar.LeftText:SetPoint("LEFT", arenaFrame.manabar)
 	--arenaFrame.manabar.RightText:ClearAllPoints()
