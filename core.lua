@@ -85,6 +85,26 @@ addon.optionsTable = {
 	},
 }
 
+addon.layouts = {}
+
+function addon:AddLayout(name, asciiName)
+	self.layouts[name] = {
+		asciiName = asciiName
+	}
+
+	return self.layouts[name]
+end
+
+function addon:GetLayouts()
+	local _table = {}
+	
+	for index, value in pairs(self.layouts) do
+		_table[index] = value.asciiName
+	end
+	
+	return _table
+end
+
 addon.modules = {}
 
 local moduleOrder = 1
@@ -150,7 +170,7 @@ function addon:OnEvent(event, ...)
 
 		LibStub("AceConfig-3.0"):RegisterOptionsTable(addonName, addon.optionsTable)
 		LibStub("AceConfigDialog-3.0"):AddToBlizOptions(addonName, addon.addonTitle)
-		LibStub("AceConfigDialog-3.0"):SetDefaultSize(addonName, 550, 500)
+		LibStub("AceConfigDialog-3.0"):SetDefaultSize(addonName, 650, 500)
 
 		local LDB = LibStub("LibDataBroker-1.1"):NewDataObject(addonName, {
 			type = "launcher",
@@ -268,4 +288,9 @@ function addon:SetupDrag(module, updateSettings, frameToClick, frameToMove)
 			end
 		end
 	end)
+end
+
+
+function sArenaIconStyle()
+	return addon.squareClassPortrait
 end

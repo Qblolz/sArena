@@ -42,6 +42,11 @@
 
 	<!-- Core -->
 	<Script file="core.lua"/>
+	
+	<!-- Layouts -->
+	<Script file="Layouts\Blizzard.lua"/>
+	<Script file="Layouts\Xaryu.lua"/>
+	<Script file="Layouts\Flat.lua"/>
 
 	<!-- Modules -->
 	<Script file="Modules\framestyles.lua"/>
@@ -50,5 +55,5 @@
 	<Script file="Modules\castbars.lua"/>
 	<Script file="Modules\trinkets.lua"/>
 	<Script file="Modules\racials.lua"/>
-	<Script file="Modules\auratracker.lua"/>
+	<!--<Script file="Modules\auratracker.lua"/>-->
 </Ui>

@@ -67,7 +67,7 @@ function module:OnEvent(event, ...)
 			addon:SetupDrag(module, false, arenaFrame.manabar, sArenaEnemyFrames)
 		end
 
-		ArenaEnemyBackground:SetParent(hiddenFrame)
+		--ArenaEnemyBackground:SetParent(hiddenFrame)
 
 		self:OnEvent("UPDATE_SETTINGS")
 	elseif event == "TEST_MODE" then
