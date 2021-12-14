@@ -178,7 +178,7 @@ function RACIAL_UNIT_SPELLCAST_SUCCEEDED(self, ...)
 	local overallTime = addon.overallCooldown[select(2, UnitRace(self.unit))]
 	if overallTime == nil or isRun == false then return end
 	
-	if addon:isNeedStart(trinket, overallTime) then
+	if overallTime and addon:isNeedStart(trinket, overallTime) then
 		trinket.time = tonumber(overallTime)
 		trinket.starttime = GetTime()
 		CooldownFrame_SetTimer(trinket.cooldown, GetTime(), overallTime, 1)
