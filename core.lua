@@ -5,7 +5,8 @@ addon.exclamation = "|TInterface\\OptionsFrame\\UI-OptionsFrame-NewFeatureIcon:0
 addon.testMode = false
 
 addon.overallCooldown = {
-	["Human"] = 90,
+	["Human"] = 45,
+	["Scourge"] = 45,
 }
 
 addon.defaultSettings = {
@@ -97,11 +98,11 @@ end
 
 function addon:GetLayouts()
 	local _table = {}
-	
+
 	for index, value in pairs(self.layouts) do
 		_table[index] = value.asciiName
 	end
-	
+
 	return _table
 end
 
@@ -140,7 +141,7 @@ function addon:isNeedStart(frame, sentCD)
 	if diff < cooldown then
 		return true
 	end
-	
+
 	if diff > cooldown then
 		return false
 	end
@@ -160,7 +161,7 @@ function addon:OnEvent(event, ...)
 				set = function(info, val) addon.modules[module].db[info[#info]] = val end,
 				args = addon.modules[module].optionsTable,
 			}
-	
+
 			addon.defaultSettings.profile[module] = addon.modules[module].defaultSettings
 		end
 
@@ -178,7 +179,7 @@ function addon:OnEvent(event, ...)
 			OnTooltipShow = function(tooltip) tooltip:AddLine(addon.addonTitle) end,
 			OnClick = function()
 				local config = LibStub("AceConfigDialog-3.0")
-	
+
 				if config.OpenFrames[addonName] then
 					config:Close(addonName)
 				else

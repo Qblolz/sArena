@@ -40,8 +40,8 @@ function TRINKET_UNIT_SPELLCAST_SUCCEEDED(self, ...)
 		
 		local overallTime = addon.overallCooldown[select(2, UnitRace(self.unit))]
 		if overallTime == nil then return end
-		--human
-		if addon:isNeedStart(racial, overallTime) then
+
+		if overallTime and addon:isNeedStart(racial, overallTime) then
 			racial.time = tonumber(overallTime)
 			racial.starttime = GetTime()
 			CooldownFrame_SetTimer(racial.cooldown, GetTime(), overallTime, 1)

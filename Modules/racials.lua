@@ -6,126 +6,68 @@ local races = {
 	[2] = "Scourge",
 	[3] = "Tauren",
 	[4] = "BloodElf",
-	[5] = "Naga",
-	[6] = "Queldo",
-	[7] = "Pandaren",
-	[8] = "Orc",
-	[9] = "Troll",
-	[10] = "NightElf",
-	[11] = "Draenei",
-	[12] = "Vulpera",
-	[13] = "Gnome",
-	[14] = "Dwarf",
-	[15] = "Worgen",
-	[16] = "Nightborne",
-	[17] = "VoidElf",
-	[18] = "Goblin",
-	[19] = "DarkIronDwarf",
-	[20] = "Eredar",
-	[21] = "None"
+	[5] = "Orc",
+	[6] = "Troll",
+	[7] = "NightElf",
+	[8] = "Draenei",
+	[9] = "Gnome",
+	[10] = "Dwarf",
+	[11] = "None"
 }
 
 raceIcons = {
 	Human = {
-		id = 316231,
-		icon = select(3, GetSpellInfo(316231)),
+		id = 59752,
+		icon = select(3, GetSpellInfo(59752)),
 		cd = 120,
 	},
 	Scourge = {
-		id = 316380,
-		icon = select(3, GetSpellInfo(316380)),
+		id = 7744,
+		icon = select(3, GetSpellInfo(7744)),
 		cd = 120,
-	},
-	Naga = {
-		id = 316413,
-		icon = select(3, GetSpellInfo(316413)),
-		cd = 120,
-	},
-	Vulpera = {
-		id = 316455,
-		icon = select(3, GetSpellInfo(316455)),
-		cd = 90,
-	},
-	Goblin = {
-		id = 316393,
-		icon = select(3, GetSpellInfo(316393)),
-		cd = 90,
 	},
 	Draenei = {
-		id = 316279,
-		icon = select(3, GetSpellInfo(316279)),
+		id = 28880,
+		icon = select(3, GetSpellInfo(28880)),
+		alt = {["59542"] = 1, ["59543"] = 1, ["59544"] = 1, ["59545"] = 1, ["59547"] = 1, ["59548"] = 1},
 		cd = 120,
 	},
 	Orc = {
-		id = 316372,
-		icon = select(3, GetSpellInfo(316372)),
+		id = 20572,
+		icon = select(3, GetSpellInfo(20572)),
+		alt = {["33697"] = 1, ["33702"] = 1},
 		cd = 120,
 	},
-	Queldo = {
-		id = 316294,
-		icon = select(3, GetSpellInfo(316294)),
-		cd = 90,
-	},
 	BloodElf = { --синд
-		id = 316418,
-		alt = {["316421"] = 1, ["302387"] = 1, ["316419"] = 1, ["316420"] = 1},
-		icon = select(3, GetSpellInfo(316418)),
+		id = 25046,
+		alt = {["28730"] = 1, ["50613"] = 1},
+		icon = select(3, GetSpellInfo(25046)),
 		cd = 90,
 	},
 	Tauren = {
-		id = 316386,
-		icon = select(3, GetSpellInfo(316386)),
+		id = 20549,
+		icon = select(3, GetSpellInfo(20549)),
 		cd = 90,
 	},
 	Troll = {
-		id = 316405,
-		icon = select(3, GetSpellInfo(316405)),
-		cd = 120,
+		id = 26297,
+		icon = select(3, GetSpellInfo(26297)),
+		cd = 180,
 	},
 	NightElf = {
-		id = 316254,
-		icon = select(3, GetSpellInfo(316254)),
+		id = 58984,
+		icon = select(3, GetSpellInfo(58984)),
 		cd = 120,
 	},
-	Pandaren = {
-		id = 316443,
-		icon = select(3, GetSpellInfo(316443)),
-		cd = 60,
-	},
 	Dwarf = {
-		id = 316243,
-		icon = select(3, GetSpellInfo(316243)),
+		id = 20594,
+		icon = select(3, GetSpellInfo(20594)),
 		cd = 120,
 	},
 	Gnome = {
-		id = 316271,
-		icon = select(3, GetSpellInfo(316271)),
-		cd = 120,
-	},
-	Worgen = {
-		id = 316289,
-		icon = select(3, GetSpellInfo(316289)),
-		cd = 90,
-	},
-	Nightborne = {
-		id = 316431,
-		icon = select(3, GetSpellInfo(316431)),
-		cd = 45,
-	},
-	VoidElf = {
-		id = 316367,
-		icon = select(3, GetSpellInfo(316367)),
-		cd = 90,
-	},
-	DarkIronDwarf = {
-		id = 316161,
-		icon = select(3, GetSpellInfo(316161)),
-		cd = 90,
-	},
-	Eredar = {
-		id = 316465,
-		icon = select(3, GetSpellInfo(316465)),
-		cd = 60,
+		id = 20589,
+		icon = select(3, GetSpellInfo(20589)),
+		cd = 105,
 	},
 	None = {
 		id = nil,
@@ -159,13 +101,13 @@ function RACIAL_UNIT_SPELLCAST_SUCCEEDED(self, ...)
 
 	if UnitGUID(self.unit) ~= sourceGUID then return end
 	if event ~= "SPELL_CAST_SUCCESS" then return end
-	
+
 	--if "Qb" ~= sourceName then return end
-	
+
 	local arenaFrame = self:GetParent()
 	local trinket = arenaFrame.CC
 	local isRun = false
-	
+
 	for race, raceData in pairs(raceIcons) do
 		if spellId == raceData.id or (raceData.alt and raceData.alt[spellId]) then
 			isRun = true
@@ -174,11 +116,11 @@ function RACIAL_UNIT_SPELLCAST_SUCCEEDED(self, ...)
 			CooldownFrame_SetTimer(self.cooldown, GetTime(), raceData.cd, 1)
 		end
 	end
-	
+
 	local overallTime = addon.overallCooldown[select(2, UnitRace(self.unit))]
 	if overallTime == nil or isRun == false then return end
-	
-	if addon:isNeedStart(trinket, overallTime) then
+
+	if overallTime and addon:isNeedStart(trinket, overallTime) then
 		trinket.time = tonumber(overallTime)
 		trinket.starttime = GetTime()
 		CooldownFrame_SetTimer(trinket.cooldown, GetTime(), overallTime, 1)
@@ -189,7 +131,7 @@ function module:OnEvent(event, ...)
 	for i = 1, MAX_ARENA_ENEMIES do
 		local CC = nil
 		local arenaFrame = _G["ArenaEnemyFrame"..i]
-		
+
 		if (arenaFrame["racial"] == nil) then
 			CC = CreateFrame("Frame", nil, arenaFrame, "sArenaIconTemplate")
 			CC.unit = arenaFrame.unit
@@ -204,7 +146,7 @@ function module:OnEvent(event, ...)
 		end
 
 		CC.cooldown:SetCooldown(0, 0)
-		
+
 		if event == "ADDON_LOADED" then
 			CC:SetMovable(true)
 			addon:SetupDrag(self, true, CC)
@@ -214,9 +156,9 @@ function module:OnEvent(event, ...)
 			CC.cooldown:ClearAllPoints()
 			CC.cooldown:SetPoint("TOPLEFT", 1, -1)
 			CC.cooldown:SetPoint("BOTTOMRIGHT", -1, 1)
-			
+
 			local _, race = UnitRace(CC.unit)
-	
+
 			local raceData = raceIcons[race]
 			if raceData then
 				CC.Icon:SetTexture(raceData.icon)
