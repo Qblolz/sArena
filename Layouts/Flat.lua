@@ -28,7 +28,7 @@ function layout:SetFrameStyle(frame, db)
 	frame.manabar:SetWidth(db.width)
 	frame.manabar:SetHeight(db.powerBarHeight)
 
-	frame.name:SetPoint("TOPLEFT", frame.healthbar, 0, 28)
+	frame.name:SetPoint("TOPLEFT", frame.healthbar, 0, 12)
 	
 	if db.mirroredFrames then
 	
