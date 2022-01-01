@@ -52,10 +52,12 @@ hiddenFrame:Hide()
 local dummyFrame = CreateFrame("Frame", nil, UIParent)
 
 local sArenaEnemyFrames = ArenaEnemyFrames
-sArenaEnemyFrames:Show()
+sArenaEnemyFrames:Hide()
 sArenaEnemyFrames:SetMovable(true)
 
 ArenaEnemyFrames = dummyFrame
+
+local firstPlayerEnteringWorld = false
 
 function module:OnEvent(event, ...)
 	if event == "ADDON_LOADED" then
@@ -70,6 +72,11 @@ function module:OnEvent(event, ...)
 		--ArenaEnemyBackground:SetParent(hiddenFrame)
 
 		self:OnEvent("UPDATE_SETTINGS")
+	elseif event == "PLAYER_ENTERING_WORLD" then
+		if not firstPlayerEnteringWorld then
+			sArenaEnemyFrames:Show()
+			firstPlayerEnteringWorld = true
+		end
 	elseif event == "TEST_MODE" then
 		for i = 1, MAX_ARENA_ENEMIES do
 			local arenaFrame = _G["ArenaEnemyFrame"..i]
