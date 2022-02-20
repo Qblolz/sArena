@@ -40,12 +40,17 @@ module.optionsTable = {
 		step = 1,
 		set = module.UpdateSettings,
 	},
-	height = {
+	break1 = {
 		order = 4,
-		name = "Height (for custom Styles)",
+		type = "header",
+		name = "",
+	},
+	healthBarHeight = {
+		order = 6,
+		name = "Health Bar Height (for custom Styles)",
 		type = "range",
-		min = 2,
-		max = 100,
+		min = 1,
+		max = 50,
 		step = 1,
 		set = module.UpdateSettings,
 	},

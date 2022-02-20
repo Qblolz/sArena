@@ -6,6 +6,7 @@ addon.testMode = false
 
 addon.overallCooldown = {
 	["Human"] = 90,
+	["Undead"] = 45,
 }
 
 addon.defaultSettings = {
