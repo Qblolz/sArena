@@ -5,7 +5,7 @@ addon.exclamation = "|TInterface\\OptionsFrame\\UI-OptionsFrame-NewFeatureIcon:0
 addon.testMode = false
 
 addon.overallCooldown = {
-	["Human"] = 45,
+	["Human"] = 90,
 	["Scourge"] = 45,
 }
 
@@ -58,7 +58,7 @@ addon.optionsTable = {
 					addon:OnEvent("TEST_MODE")
 				end
 			end,
-			width = 0.5,
+			--width = 0.5,
 		},
 		hide = {
 			order = 6,
@@ -71,7 +71,7 @@ addon.optionsTable = {
 					addon:OnEvent("TEST_MODE")
 				end
 			end,
-			width = 0.5,
+			--width = 0.5,
 		},
 		minimapButton = {
 			order = 7,
@@ -80,7 +80,7 @@ addon.optionsTable = {
 			get = function(info) return not addon.db.profile.minimap.hide end,
 			set = function(info, val)
 				addon.db.profile.minimap.hide = not val
-				addon.icon:Refresh(addonName)
+				addon.icon:Refresh(addonName, addon.db.profile.minimap)
 			end,
 		},
 	},
@@ -98,11 +98,11 @@ end
 
 function addon:GetLayouts()
 	local _table = {}
-
+	
 	for index, value in pairs(self.layouts) do
 		_table[index] = value.asciiName
 	end
-
+	
 	return _table
 end
 
@@ -141,7 +141,7 @@ function addon:isNeedStart(frame, sentCD)
 	if diff < cooldown then
 		return true
 	end
-
+	
 	if diff > cooldown then
 		return false
 	end
@@ -161,12 +161,13 @@ function addon:OnEvent(event, ...)
 				set = function(info, val) addon.modules[module].db[info[#info]] = val end,
 				args = addon.modules[module].optionsTable,
 			}
-
+	
 			addon.defaultSettings.profile[module] = addon.modules[module].defaultSettings
 		end
 
 		addon.db = LibStub("AceDB-3.0"):New(addonName.."DB", addon.defaultSettings, true)
-
+		TTT = addon.db
+		TTTT = addon
 		addon.optionsTable.args.profile = LibStub("AceDBOptions-3.0"):GetOptionsTable(addon.db)
 
 		LibStub("AceConfig-3.0"):RegisterOptionsTable(addonName, addon.optionsTable)
@@ -179,7 +180,7 @@ function addon:OnEvent(event, ...)
 			OnTooltipShow = function(tooltip) tooltip:AddLine(addon.addonTitle) end,
 			OnClick = function()
 				local config = LibStub("AceConfigDialog-3.0")
-
+	
 				if config.OpenFrames[addonName] then
 					config:Close(addonName)
 				else
