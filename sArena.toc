@@ -1,6 +1,6 @@
 ## Interface: 20501
 ## Title: sArena
-## Notes: |@Version: 1@|Improved arena frames.
+## Notes: |@Version: 2@|Improved arena frames.
 ## Author: Stako
 ## Version: 1.9
 ## Dependencies: Blizzard_ArenaUI
