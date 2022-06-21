@@ -58,7 +58,7 @@ addon.optionsTable = {
 					addon:OnEvent("TEST_MODE")
 				end
 			end,
-			width = 0.5,
+			--width = 0.5,
 		},
 		hide = {
 			order = 6,
@@ -71,7 +71,7 @@ addon.optionsTable = {
 					addon:OnEvent("TEST_MODE")
 				end
 			end,
-			width = 0.5,
+			--width = 0.5,
 		},
 		minimapButton = {
 			order = 7,
@@ -80,7 +80,7 @@ addon.optionsTable = {
 			get = function(info) return not addon.db.profile.minimap.hide end,
 			set = function(info, val)
 				addon.db.profile.minimap.hide = not val
-				addon.icon:Refresh(addonName)
+				addon.icon:Refresh(addonName, addon.db.profile.minimap)
 			end,
 		},
 	},
@@ -166,7 +166,8 @@ function addon:OnEvent(event, ...)
 		end
 
 		addon.db = LibStub("AceDB-3.0"):New(addonName.."DB", addon.defaultSettings, true)
-
+		TTT = addon.db
+		TTTT = addon
 		addon.optionsTable.args.profile = LibStub("AceDBOptions-3.0"):GetOptionsTable(addon.db)
 
 		LibStub("AceConfig-3.0"):RegisterOptionsTable(addonName, addon.optionsTable)
