@@ -98,7 +98,11 @@ function module:OnEvent(event, ...)
 
 		for i = 1, MAX_ARENA_ENEMIES do
 			local arenaFrame = _G["ArenaEnemyFrame"..i]
-			arenaFrame.name:SetShown(not self.db.hideNames)
+			if self.db.hideNames then
+				arenaFrame.name:Hide()
+			else
+				arenaFrame.name:Show()
+			end
 
 			if i > 1 then
 				arenaFrame:SetPoint("TOP", _G["ArenaEnemyFrame"..i-1], "BOTTOM", 0, self.db.frameSpacing * -1)
