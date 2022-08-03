@@ -22,7 +22,9 @@ local races = {
 	[18] = "Goblin",
 	[19] = "DarkIronDwarf",
 	[20] = "Eredar",
-	[21] = "None"
+	[21] = "ZandalariTroll",
+	[22] = "Lightforged",
+	[23] = "None"
 }
 
 raceIcons = {
@@ -126,6 +128,16 @@ raceIcons = {
 		id = 316465,
 		icon = select(3, GetSpellInfo(316465)),
 		cd = 60,
+	},
+	ZandalariTroll = {
+		id = 310810,
+		icon = select(3, GetSpellInfo(310810)),
+		cd = 120,
+	},
+	Lightforged = {
+		id = 319322,
+		icon = select(3, GetSpellInfo(319322)),
+		cd = 90,
 	},
 	None = {
 		id = nil,
