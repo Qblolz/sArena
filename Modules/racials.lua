@@ -41,7 +41,7 @@ raceIcons = {
 	Naga = {
 		id = 316413,
 		icon = select(3, GetSpellInfo(316413)),
-		cd = 120,
+		cd = 90,
 	},
 	Vulpera = {
 		id = 316455,
@@ -51,7 +51,7 @@ raceIcons = {
 	Goblin = {
 		id = 316393,
 		icon = select(3, GetSpellInfo(316393)),
-		cd = 90,
+		cd = 120,
 	},
 	Draenei = {
 		id = 316279,
@@ -61,7 +61,7 @@ raceIcons = {
 	Orc = {
 		id = 316372,
 		icon = select(3, GetSpellInfo(316372)),
-		cd = 120,
+		cd = 90,
 	},
 	Queldo = {
 		id = 316294,
@@ -82,7 +82,7 @@ raceIcons = {
 	Troll = {
 		id = 316405,
 		icon = select(3, GetSpellInfo(316405)),
-		cd = 120,
+		cd = 90,
 	},
 	NightElf = {
 		id = 316254,
@@ -92,7 +92,7 @@ raceIcons = {
 	Pandaren = {
 		id = 316443,
 		icon = select(3, GetSpellInfo(316443)),
-		cd = 60,
+		cd = 90,
 	},
 	Dwarf = {
 		id = 316243,
@@ -112,7 +112,7 @@ raceIcons = {
 	Nightborne = {
 		id = 316431,
 		icon = select(3, GetSpellInfo(316431)),
-		cd = 45,
+		cd = 30,
 	},
 	VoidElf = {
 		id = 316367,
