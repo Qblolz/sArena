@@ -24,6 +24,7 @@ local races = {
 	[20] = "Eredar",
 	[21] = "ZandalariTroll",
 	[22] = "Lightforged",
+	[22] = "Dracthyr",
 	[23] = "None"
 }
 
@@ -139,6 +140,11 @@ raceIcons = {
 		icon = select(3, GetSpellInfo(319322)),
 		cd = 90,
 	},
+	Dracthyr = {
+		id = 320552,
+		icon = select(3, GetSpellInfo(320552)),
+		cd = 120,
+	},
 	None = {
 		id = nil,
 		icon = "Interface\\Icons\\inv_misc_questionmark",
@@ -179,7 +185,7 @@ function RACIAL_UNIT_SPELLCAST_SUCCEEDED(self, ...)
 	local isRun = false
 	
 	for race, raceData in pairs(raceIcons) do
-		if spellId == raceData.id or (raceData.alt and raceData.alt[spellId]) then
+		if spellId == raceData.id or (raceData.alt and raceData.alt[tostring(spellId)]) then
 			isRun = true
 			self.time = tonumber(raceData.cd)
 			self.starttime = GetTime()
