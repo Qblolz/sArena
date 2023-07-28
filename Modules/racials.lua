@@ -93,7 +93,7 @@ raceIcons = {
 	Pandaren = {
 		id = 316443,
 		icon = select(3, GetSpellInfo(316443)),
-		cd = 90,
+		cd = 120,
 	},
 	Dwarf = {
 		id = 316243,
@@ -123,7 +123,7 @@ raceIcons = {
 	DarkIronDwarf = {
 		id = 316161,
 		icon = select(3, GetSpellInfo(316161)),
-		cd = 90,
+		cd = 120,
 	},
 	Eredar = {
 		id = 316465,
@@ -138,7 +138,7 @@ raceIcons = {
 	Lightforged = {
 		id = 319322,
 		icon = select(3, GetSpellInfo(319322)),
-		cd = 90,
+		cd = 60,
 	},
 	Dracthyr = {
 		id = 320552,
