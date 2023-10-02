@@ -246,12 +246,10 @@ function module:OnEvent(event, ...)
 				local _, _, icon, _, _, duration, expirationTime, _, _, _, spellID = UnitAura(CC.unit, key, "HARMFUL")
 
 				if spellID ~= nil and constellations2Spells[spellID] then
-					print(1)
 					raceData = constellations2Spells[spellID]
 				end
 			end
 
-			print(raceData)
 			if raceData then
 				CC.Icon:SetTexture(raceData.icon)
 			end
