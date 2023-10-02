@@ -211,6 +211,11 @@ function RACIAL_UNIT_SPELLCAST_SUCCEEDED(self, ...)
 end
 
 function module:OnEvent(event, ...)
+	if event == "UNIT_AURA" then
+		local __unit = select(1, ...)
+		if not __unit:find("arena") then return end
+	end
+
 	for i = 1, MAX_ARENA_ENEMIES do
 		local CC = nil
 		local arenaFrame = _G["ArenaEnemyFrame"..i]
@@ -228,12 +233,15 @@ function module:OnEvent(event, ...)
 		end
 
 		CC.COMBAT_LOG_EVENT_UNFILTERED = RACIAL_UNIT_SPELLCAST_SUCCEEDED
-		CC.cooldown:SetCooldown(0, 0)
 
-		local raceData = addon.detectConstellation(CC.unit)
+		if event == "UNIT_AURA" then
+			local raceData = addon.detectConstellation(CC.unit)
 
-		if raceData then
-			CC.Icon:SetTexture(raceData.icon)
+			if raceData then
+				CC.Icon:SetTexture(raceData.icon)
+			end
+		else
+			CC.cooldown:SetCooldown(0, 0)
 		end
 
 		if event == "ADDON_LOADED" then

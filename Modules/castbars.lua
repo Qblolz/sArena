@@ -44,6 +44,10 @@ module.optionsTable = {
 }
 
 function module:OnEvent(event, ...)
+	if event == "UNIT_AURA" then
+		return;
+	end
+
 	for i = 1, MAX_ARENA_ENEMIES do
 		local castBar = _G["ArenaEnemyFrame"..i.."CastingBar"]
 		local barSpark = _G[castBar:GetName().."Spark"]

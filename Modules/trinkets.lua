@@ -60,6 +60,10 @@ end
 
 
 function module:OnEvent(event, ...)
+	if event == "UNIT_AURA" then
+		return;
+	end
+
 	for i = 1, MAX_ARENA_ENEMIES do
 		local CC = nil
 		local arenaFrame = _G["ArenaEnemyFrame"..i]

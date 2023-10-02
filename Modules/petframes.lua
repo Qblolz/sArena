@@ -52,6 +52,10 @@ for i = 1, MAX_ARENA_ENEMIES do
 end
 
 function module:OnEvent(event, ...)
+	if event == "UNIT_AURA" then
+		return;
+	end
+
 	for i = 1, MAX_ARENA_ENEMIES do
 		local arenaFrame = _G["ArenaEnemyFrame"..i]
 		local petFrame = arenaFrame.petFrame

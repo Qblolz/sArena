@@ -60,6 +60,10 @@ ArenaEnemyFrames = dummyFrame
 local firstPlayerEnteringWorld = false
 
 function module:OnEvent(event, ...)
+	if event == "UNIT_AURA" then
+		return;
+	end
+
 	if event == "ADDON_LOADED" then
 		for i = 1, MAX_ARENA_ENEMIES do
 			local arenaFrame = _G["ArenaEnemyFrame"..i]
