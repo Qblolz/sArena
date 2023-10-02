@@ -222,12 +222,12 @@ function module:OnEvent(event, ...)
 			CC.starttime = 0
 			CC:RegisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
 			CC:SetScript("OnEvent", function(self, event, ...) return self[event](self, ...) end)
-			CC.COMBAT_LOG_EVENT_UNFILTERED = RACIAL_UNIT_SPELLCAST_SUCCEEDED
 			arenaFrame.racial = CC
 		else
 			CC = arenaFrame.racial
 		end
 
+		CC.COMBAT_LOG_EVENT_UNFILTERED = RACIAL_UNIT_SPELLCAST_SUCCEEDED
 		CC.cooldown:SetCooldown(0, 0)
 
 		local raceData = addon.detectConstellation(CC.unit)

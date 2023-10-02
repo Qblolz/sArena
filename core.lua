@@ -245,7 +245,6 @@ addon.eventHandler = CreateFrame("Frame")
 addon.eventHandler:SetScript("OnEvent", addon.OnEvent)
 addon.eventHandler:RegisterEvent("ADDON_LOADED")
 addon.eventHandler:RegisterEvent("PLAYER_ENTERING_WORLD")
-addon.eventHandler:RegisterEvent("UNIT_AURA")
 
 function addon:SetupDrag(module, updateSettings, frameToClick, frameToMove)
 	if not frameToMove then
