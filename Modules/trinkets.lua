@@ -37,8 +37,17 @@ function TRINKET_UNIT_SPELLCAST_SUCCEEDED(self, ...)
 		self.time = tonumber(120)
 		self.starttime = GetTime()
 		CooldownFrame_SetTimer(self.cooldown, GetTime(), 120, 1)
-		
-		local overallTime = addon.overallCooldown[select(2, UnitRace(self.unit))]
+
+		local overallTime;
+
+		for key = 1, 40 do
+			local _, _, icon, _, _, duration, expirationTime, _, _, _, spellID = UnitAura(self.unit, key, "HARMFUL")
+
+			if spellID ~= nil and addon.overallCooldown[spellID] then
+				overallTime = addon.overallCooldown[spellID]
+			end
+		end
+
 		if overallTime == nil then return end
 
 		if overallTime and addon:isNeedStart(racial, overallTime) then

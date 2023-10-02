@@ -1,146 +1,146 @@
 local addonName, addon = ...
 local module = addon:CreateModule("Racials")
 
-local races = {
-	[1] = "Human",
-	[2] = "Scourge",
-	[3] = "Tauren",
-	[4] = "BloodElf",
-	[5] = "Naga",
-	[6] = "Queldo",
-	[7] = "Pandaren",
-	[8] = "Orc",
-	[9] = "Troll",
-	[10] = "NightElf",
-	[11] = "Draenei",
-	[12] = "Vulpera",
-	[13] = "Gnome",
-	[14] = "Dwarf",
-	[15] = "Worgen",
-	[16] = "Nightborne",
-	[17] = "VoidElf",
-	[18] = "Goblin",
-	[19] = "DarkIronDwarf",
-	[20] = "Eredar",
-	[21] = "ZandalariTroll",
-	[22] = "Lightforged",
-	[22] = "Dracthyr",
+local constellations = {
+	[1] = 371796, -- Human
+	[2] = 371804, -- Scourge
+	[3] = 371805, -- Tauren
+	[4] = 371788, -- BloodElf
+	[5] = 371798, -- Naga
+	[6] = 371803, -- Queldo
+	[7] = 371802, -- Pandaren
+	[8] = 371801, -- Orc
+	[9] = 371806, -- Troll
+	[10] = 371800, -- NightElf
+	[11] = 371791, -- Draenei
+	[12] = 371808, -- Vulpera
+	[13] = 371794, -- Gnome
+	[14] = 371792, -- Dwarf
+	[15] = 371809, -- Worgen
+	[16] = 371799, -- Nightborne
+	[17] = 371807, -- VoidElf
+	[18] = 371795, -- Goblin
+	[19] = 371789, -- DarkIronDwarf
+	[20] = 371793, -- Eredar
+	[21] = 371810, -- ZandalariTroll
+	[22] = 371797, -- Lightforged
+	[22] = 371790, -- Dracthyr
 	[23] = "None"
 }
 
-raceIcons = {
-	Human = {
+constellations2Spells = {
+	[371796] = {
 		id = 316231,
 		icon = select(3, GetSpellInfo(316231)),
 		cd = 120,
 	},
-	Scourge = {
+	[371804] = {
 		id = 316380,
 		icon = select(3, GetSpellInfo(316380)),
 		cd = 120,
 	},
-	Naga = {
+	[371798] = {
 		id = 316413,
 		icon = select(3, GetSpellInfo(316413)),
 		cd = 90,
 	},
-	Vulpera = {
+	[371808] = {
 		id = 316455,
 		icon = select(3, GetSpellInfo(316455)),
 		cd = 90,
 	},
-	Goblin = {
+	[371795] = {
 		id = 316393,
 		icon = select(3, GetSpellInfo(316393)),
 		cd = 120,
 	},
-	Draenei = {
+	[371791] = {
 		id = 316279,
 		icon = select(3, GetSpellInfo(316279)),
 		cd = 120,
 	},
-	Orc = {
+	[371801] = {
 		id = 316372,
 		icon = select(3, GetSpellInfo(316372)),
 		cd = 90,
 	},
-	Queldo = {
+	[371803] = {
 		id = 316294,
 		icon = select(3, GetSpellInfo(316294)),
 		cd = 90,
 	},
-	BloodElf = { --синд
+	[371788] = { --синд
 		id = 316418,
 		alt = {["316421"] = 1, ["302387"] = 1, ["316419"] = 1, ["316420"] = 1},
 		icon = select(3, GetSpellInfo(316418)),
 		cd = 90,
 	},
-	Tauren = {
+	[371805] = {
 		id = 316386,
 		icon = select(3, GetSpellInfo(316386)),
 		cd = 90,
 	},
-	Troll = {
+	[371806] = {
 		id = 316405,
 		icon = select(3, GetSpellInfo(316405)),
 		cd = 90,
 	},
-	NightElf = {
+	[371800] = {
 		id = 316254,
 		icon = select(3, GetSpellInfo(316254)),
 		cd = 120,
 	},
-	Pandaren = {
+	[371802] = {
 		id = 316443,
 		icon = select(3, GetSpellInfo(316443)),
-		cd = 120,
+		cd = 90,
 	},
-	Dwarf = {
+	[371792] = {
 		id = 316243,
 		icon = select(3, GetSpellInfo(316243)),
 		cd = 120,
 	},
-	Gnome = {
+	[371794] = {
 		id = 316271,
 		icon = select(3, GetSpellInfo(316271)),
 		cd = 120,
 	},
-	Worgen = {
+	[371809] = {
 		id = 316289,
 		icon = select(3, GetSpellInfo(316289)),
 		cd = 90,
 	},
-	Nightborne = {
+	[371799] = {
 		id = 316431,
 		icon = select(3, GetSpellInfo(316431)),
 		cd = 30,
 	},
-	VoidElf = {
+	[371807] = {
 		id = 316367,
 		icon = select(3, GetSpellInfo(316367)),
 		cd = 90,
 	},
-	DarkIronDwarf = {
+	[371789] = {
 		id = 316161,
 		icon = select(3, GetSpellInfo(316161)),
-		cd = 120,
+		cd = 90,
 	},
-	Eredar = {
+	[371793] = {
 		id = 316465,
 		icon = select(3, GetSpellInfo(316465)),
 		cd = 60,
 	},
-	ZandalariTroll = {
+	[371810] = {
 		id = 310810,
 		icon = select(3, GetSpellInfo(310810)),
-		cd = 120,
+		cd = 90,
 	},
-	Lightforged = {
+	[371797] = {
 		id = 319322,
 		icon = select(3, GetSpellInfo(319322)),
-		cd = 60,
+		cd = 90,
 	},
-	Dracthyr = {
+	[371790] = {
 		id = 320552,
 		icon = select(3, GetSpellInfo(320552)),
 		cd = 120,
@@ -178,13 +178,11 @@ function RACIAL_UNIT_SPELLCAST_SUCCEEDED(self, ...)
 	if UnitGUID(self.unit) ~= sourceGUID then return end
 	if event ~= "SPELL_CAST_SUCCESS" then return end
 	
-	--if "Qb" ~= sourceName then return end
-	
 	local arenaFrame = self:GetParent()
 	local trinket = arenaFrame.CC
 	local isRun = false
 	
-	for race, raceData in pairs(raceIcons) do
+	for race, raceData in pairs(constellations2Spells) do
 		if spellId == raceData.id or (raceData.alt and raceData.alt[tostring(spellId)]) then
 			isRun = true
 			self.time = tonumber(raceData.cd)
@@ -192,8 +190,17 @@ function RACIAL_UNIT_SPELLCAST_SUCCEEDED(self, ...)
 			CooldownFrame_SetTimer(self.cooldown, GetTime(), raceData.cd, 1)
 		end
 	end
-	
-	local overallTime = addon.overallCooldown[select(2, UnitRace(self.unit))]
+
+	local overallTime = nil;
+
+	for key = 1, 40 do
+		local _, _, icon, _, _, duration, expirationTime, _, _, _, spellID = UnitAura(self.unit, key, "HARMFUL")
+
+		if spellID ~= nil and addon.overallCooldown[spellID] then
+			overallTime = addon.overallCooldown[spellID]
+		end
+	end
+
 	if overallTime == nil or isRun == false then return end
 	
 	if overallTime and addon:isNeedStart(trinket, overallTime) then
@@ -232,17 +239,27 @@ function module:OnEvent(event, ...)
 			CC.cooldown:ClearAllPoints()
 			CC.cooldown:SetPoint("TOPLEFT", 1, -1)
 			CC.cooldown:SetPoint("BOTTOMRIGHT", -1, 1)
-			
-			local _, race = UnitRace(CC.unit)
-	
-			local raceData = raceIcons[race]
+
+			local raceData = nil;
+
+			for key = 1, 40 do
+				local _, _, icon, _, _, duration, expirationTime, _, _, _, spellID = UnitAura(CC.unit, key, "HARMFUL")
+
+				if spellID ~= nil and constellations2Spells[spellID] then
+					print(1)
+					raceData = constellations2Spells[spellID]
+				end
+			end
+
+			print(raceData)
 			if raceData then
 				CC.Icon:SetTexture(raceData.icon)
 			end
 		elseif event == "TEST_MODE" then
 			if addon.testMode then
 				CC:EnableMouse(true)
-				CC.Icon:SetTexture(raceIcons[races[ math.random(#races - 1)]].icon)
+				local rndValue = math.random(#constellations - 1)
+				CC.Icon:SetTexture(constellations2Spells[constellations[rndValue]].icon)
 				CC.cooldown:SetCooldown(GetTime(), random(30,120))
 			else
 				CC:EnableMouse(false)
