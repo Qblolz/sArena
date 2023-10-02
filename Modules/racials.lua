@@ -229,7 +229,13 @@ function module:OnEvent(event, ...)
 		end
 
 		CC.cooldown:SetCooldown(0, 0)
-		
+
+		local raceData = addon.detectConstellation(CC.unit)
+
+		if raceData then
+			CC.Icon:SetTexture(raceData.icon)
+		end
+
 		if event == "ADDON_LOADED" then
 			CC:SetMovable(true)
 			addon:SetupDrag(self, true, CC)
@@ -239,20 +245,6 @@ function module:OnEvent(event, ...)
 			CC.cooldown:ClearAllPoints()
 			CC.cooldown:SetPoint("TOPLEFT", 1, -1)
 			CC.cooldown:SetPoint("BOTTOMRIGHT", -1, 1)
-
-			local raceData = nil;
-
-			for key = 1, 40 do
-				local _, _, icon, _, _, duration, expirationTime, _, _, _, spellID = UnitAura(CC.unit, key, "HARMFUL")
-
-				if spellID ~= nil and constellations2Spells[spellID] then
-					raceData = constellations2Spells[spellID]
-				end
-			end
-
-			if raceData then
-				CC.Icon:SetTexture(raceData.icon)
-			end
 		elseif event == "TEST_MODE" then
 			if addon.testMode then
 				CC:EnableMouse(true)

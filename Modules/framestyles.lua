@@ -171,12 +171,13 @@ local classIcons = {
 
 hooksecurefunc("ArenaEnemyFrame_UpdatePlayer", function(self)
 	local _, class = UnitClass(self.unit)
-	local _, race = UnitRace(self.unit)
-	
-	local raceData = raceIcons[race]
+
+	local raceData = addon.detectConstellation(self.unit)
+
 	if raceData then
 		self.racial.Icon:SetTexture(raceData.icon)
 	end
+
 	if class then
 		if addon.squareClassPortrait then
 			self.classPortrait:SetTexture("Interface\\WorldStateFrame\\ICONS-CLASSES")
