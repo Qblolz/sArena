@@ -93,7 +93,7 @@ constellations2Spells = {
 	[371802] = {
 		id = 316443,
 		icon = select(3, GetSpellInfo(316443)),
-		cd = 90,
+		cd = 120,
 	},
 	[371792] = {
 		id = 316243,
