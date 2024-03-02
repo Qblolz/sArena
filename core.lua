@@ -5,7 +5,7 @@ addon.exclamation = "|TInterface\\OptionsFrame\\UI-OptionsFrame-NewFeatureIcon:0
 addon.testMode = false
 
 addon.overallCooldown = {
-	["Human"] = 90,
+	["Human"] = 120,
 	["Scourge"] = 45,
 }
 
