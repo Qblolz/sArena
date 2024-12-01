@@ -172,6 +172,26 @@ module.optionsTable = {
 	}
 }
 
+function RACIAL_UNIT_SPELLCAST_SUCCEEDED_SECOND_TRY(self, unit, ability)
+    if self.unit ~= unit then return end
+
+    local spellId
+
+    if ability == 'Духовные крылья' then
+        spellId = 320552
+    end
+
+    if not spellId then return end
+    for race, raceData in pairs(constellations2Spells) do
+        if spellId == raceData.id or (raceData.alt and raceData.alt[tostring(spellId)]) then
+            isRun = true
+            self.time = tonumber(raceData.cd)
+            self.starttime = GetTime()
+            CooldownFrame_SetTimer(self.cooldown, GetTime(), raceData.cd, 1)
+        end
+    end
+end
+
 function RACIAL_UNIT_SPELLCAST_SUCCEEDED(self, ...)
 	local _, event, sourceGUID, sourceName, _, destGUID, destName, _, spellId, spellName, _, _, _, _, _ = select(1,...)
 
@@ -226,6 +246,7 @@ function module:OnEvent(event, ...)
 			CC.time = 0
 			CC.starttime = 0
 			CC:RegisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
+			CC:RegisterEvent("UNIT_SPELLCAST_SUCCEEDED")
 			CC:SetScript("OnEvent", function(self, event, ...) return self[event](self, ...) end)
 			arenaFrame.racial = CC
 		else
@@ -233,6 +254,7 @@ function module:OnEvent(event, ...)
 		end
 
 		CC.COMBAT_LOG_EVENT_UNFILTERED = RACIAL_UNIT_SPELLCAST_SUCCEEDED
+		CC.UNIT_SPELLCAST_SUCCEEDED = RACIAL_UNIT_SPELLCAST_SUCCEEDED_SECOND_TRY
 
 		if event == "UNIT_AURA" then
 			local raceData = addon.detectConstellation(CC.unit)
