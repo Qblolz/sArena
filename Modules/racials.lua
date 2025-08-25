@@ -24,8 +24,8 @@ local constellations = {
 	[20] = 371793, -- Eredar
 	[21] = 371810, -- ZandalariTroll
 	[22] = 371797, -- Lightforged
-	[22] = 371790, -- Dracthyr
-	[23] = "None"
+	[23] = 371790, -- Dracthyr
+	[24] = "None"
 }
 
 constellations2Spells = {
