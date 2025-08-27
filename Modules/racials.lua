@@ -179,6 +179,12 @@ function RACIAL_UNIT_SPELLCAST_SUCCEEDED_SECOND_TRY(self, unit, ability)
 
     if ability == 'Духовные крылья' then
         spellId = 320552
+    elseif ability == GetSpellInfo(375040)  then
+        spellId = 375040
+    elseif ability == GetSpellInfo(374994) then
+        spellId = 374994
+    elseif ability == GetSpellInfo(375010) then
+        spellId = 375010
     end
 
     if not spellId then return end
