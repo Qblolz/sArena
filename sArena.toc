@@ -1,6 +1,6 @@
 ## Interface: 30300
 ## Title: sArena
-## Notes: |@Version: 4@|Improved arena frames.
+## Notes: |@Version: 5@|Improved arena frames.
 ## Author: Stako
 ## Version: 1.22
 ## Dependencies: Blizzard_ArenaUI
