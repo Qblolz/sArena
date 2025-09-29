@@ -2,7 +2,7 @@
 ## Title: sArena
 ## Notes: |@Version: 5@|Improved arena frames.
 ## Author: Stako
-## Version: 1.22
+## Version: 1.23
 ## Dependencies: Blizzard_ArenaUI
 ## X-Sirus-Update: https://github.com/Qblolz/sArena
 
