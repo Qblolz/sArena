@@ -1,0 +1,58 @@
+<Ui>
+	<!-- Templates -->
+	<Frame name="sArenaIconTemplate" enablemouse="true" movable="true" virtual="true">
+		<Layers>
+			<Layer level="BACKGROUND">
+				<Texture parentKey="texture" setAllPoints="true"/>
+			</Layer>
+			<Layer level="BACKGROUND">
+				<Texture parentKey="Icon" setAllPoints="true"/>
+			</Layer>
+		</Layers>
+		<Frames>
+			<Cooldown parentKey="cooldown" hideCountdownNumbers="false" inherits="CooldownFrameTemplate">
+				<Anchors>
+					<Anchor point="TOPLEFT" x="1" y="-1"/>
+					<Anchor point="BOTTOMRIGHT" x="-1" y="1"/>
+				</Anchors>
+				<Scripts>
+					<OnLoad>
+						for _, region in next, { self:GetRegions() } do
+							if region:GetObjectType() == "FontString" then
+								self.text = region
+								self.text.fontFile = region:GetFont()
+							end
+						end
+					</OnLoad>
+				</Scripts>
+			</Cooldown>
+		</Frames>
+	</Frame>
+
+	<!-- Libraries -->
+	<Script file="Libs\LibStub\LibStub.lua"/>
+	<Include file="Libs\CallbackHandler-1.0\CallbackHandler-1.0.xml"/>
+	<Include file="Libs\AceDB-3.0\AceDB-3.0.xml"/>
+	<Include file="Libs\AceDBOptions-3.0\AceDBOptions-3.0.xml"/>
+	<Include file="Libs\AceGUI-3.0\AceGUI-3.0.xml"/>
+	<Include file="Libs\AceConfig-3.0\AceConfig-3.0.xml"/>
+	<Include file="Libs\AceConsole-3.0\AceConsole-3.0.xml"/>
+	<Script file="Libs\LibDataBroker-1.1\LibDataBroker-1.1.lua"/>
+	<Include file="Libs\LibDBIcon-1.0\LibDBIcon-1.0.lua"/>
+
+	<!-- Core -->
+	<Script file="core.lua"/>
+	
+	<!-- Layouts -->
+	<Script file="Layouts\Blizzard.lua"/>
+	<Script file="Layouts\Xaryu.lua"/>
+	<Script file="Layouts\Flat.lua"/>
+
+	<!-- Modules -->
+	<Script file="Modules\framestyles.lua"/>
+	<Script file="Modules\unitframes.lua"/>
+	<Script file="Modules\petframes.lua"/>
+	<Script file="Modules\castbars.lua"/>
+	<Script file="Modules\trinkets.lua"/>
+	<Script file="Modules\racials.lua"/>
+</Ui>
